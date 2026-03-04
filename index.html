@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LVRG — The Growth System for DTC Health Brands</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAFAF7;
+  --bg-warm: #F3F0EB;
+  --bg-card: #FFFFFF;
+  --bg-dark: #1A1A18;
+  --text: #1A1A18;
+  --text-body: #4A4A45;
+  --text-muted: #9A9A92;
+  --accent: #2D5A3D;
+  --accent-light: #3D7A53;
+  --accent-bg: #E8F0EB;
+  --accent-warm: #D4E4D9;
+  --red-soft: #C0392B;
+  --border: #E5E2DC;
+  --border-light: #F0EDE8;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 400; line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ===== NAV ===== */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.25rem 5rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.4s ease; background: transparent; }
+nav.scrolled { background: rgba(250,250,247,0.95); backdrop-filter: blur(20px); padding: 0.9rem 5rem; border-bottom: 1px solid var(--border-light); }
+.nav-logo img { height: 22px; width: auto; }
+.nav-center { display: flex; gap: 2.5rem; }
+.nav-center a { color: var(--text-body); text-decoration: none; font-size: 0.88rem; font-weight: 400; transition: color 0.3s; }
+.nav-center a:hover { color: var(--accent); }
+.nav-cta-btn { padding: 0.6rem 1.8rem; background: var(--accent); color: white; font-size: 0.85rem; font-weight: 500; text-decoration: none; border-radius: 100px; transition: all 0.3s; }
+.nav-cta-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+/* ===== HERO ===== */
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 8rem 2rem 3rem; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; background: var(--accent-bg); border-radius: 100px; font-size: 0.8rem; color: var(--accent); font-weight: 500; margin-bottom: 2.5rem; }
+.hero-badge .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.hero h1 { font-family: var(--serif); font-size: clamp(2.8rem, 5.5vw, 4.5rem); font-weight: 400; line-height: 1.1; max-width: 900px; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+.hero h1 .accent { color: var(--accent); font-style: italic; }
+.hero-sub { font-size: 1.15rem; color: var(--text-body); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.85; }
+.hero-actions { display: flex; gap: 1rem; align-items: center; margin-bottom: 3rem; }
+.btn-fill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2.5rem; background: var(--accent); color: white; font-family: var(--sans); font-size: 0.9rem; font-weight: 500; text-decoration: none; border-radius: 100px; transition: all 0.3s; border: none; cursor: pointer; }
+.btn-fill:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,90,61,0.2); }
+.btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: transparent; color: var(--text-body); font-size: 0.9rem; font-weight: 400; text-decoration: none; border-radius: 100px; border: 1px solid var(--border); transition: all 0.3s; }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.hero-stats-bar { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--bg-card); }
+.hero-stat { flex: 1; padding: 2rem 2.5rem; text-align: center; border-right: 1px solid var(--border); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat h3 { font-family: var(--serif); font-size: 2.5rem; font-weight: 400; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+.hero-stat p { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+
+/* ===== LOGO MARQUEE ===== */
+.logo-bar { padding: 2.5rem 0; background: var(--bg); border-bottom: 1px solid var(--border-light); overflow: hidden; }
+.logo-bar-label { text-align: center; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; margin-bottom: 1.5rem; }
+.logo-track { display: flex; align-items: center; gap: 4rem; animation: marquee 30s linear infinite; width: max-content; }
+.logo-track img { height: 28px; width: auto; opacity: 0.45; filter: grayscale(100%); transition: all 0.3s; }
+.logo-track img:hover { opacity: 0.8; filter: grayscale(0%); }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ===== PROOF INTERRUPT ===== */
+.proof-interrupt { padding: 3.5rem 5rem; background: var(--bg-warm); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+.proof-interrupt-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+.proof-interrupt blockquote { font-family: var(--serif); font-size: clamp(1.3rem, 2.2vw, 1.7rem); font-weight: 400; line-height: 1.5; color: var(--text); font-style: italic; margin-bottom: 1.5rem; }
+.proof-interrupt .proof-author { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.proof-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; color: var(--accent); flex-shrink: 0; }
+.proof-meta h5 { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+.proof-meta p { font-size: 0.8rem; color: var(--text-muted); }
+.proof-result { display: inline-block; margin-top: 1rem; padding: 0.4rem 1rem; background: var(--accent-bg); border-radius: 100px; font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+
+/* ===== CENTERED SECTION (consistent design) ===== */
+section { padding: 7rem 5rem; }
+.centered-section { text-align: center; }
+.centered-section .section-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+.centered-section .section-heading { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; line-height: 1.2; max-width: 750px; margin: 0 auto 1rem; letter-spacing: -0.01em; }
+.centered-section .section-sub { font-size: 1.05rem; color: var(--text-body); max-width: 600px; margin: 0 auto 3.5rem; line-height: 1.8; }
+.centered-section .section-sub strong { color: var(--text); }
+
+/* ===== ANIMATED COMPARISON ===== */
+.comparison-container { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1000px; margin: 0 auto; }
+.comp-side { position: relative; border-radius: 20px; padding: 2.5rem; min-height: 420px; overflow: hidden; }
+.comp-chaos { background: #FDF2F0; border: 1px solid #F0D0CA; }
+.comp-system { background: var(--accent-bg); border: 1px solid var(--accent-warm); }
+.comp-side h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 1.5rem; text-align: center; }
+.comp-chaos h3 { color: var(--red-soft); }
+.comp-system h3 { color: var(--accent); }
+
+/* Chaos animation - scattered ads */
+.chaos-canvas { position: relative; height: 300px; width: 100%; }
+.chaos-ad { position: absolute; width: 60px; height: 60px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 600; color: white; text-align: center; line-height: 1.2; transition: all 0.5s; opacity: 0; }
+.chaos-ad.active { opacity: 1; }
+.chaos-ad.fail { background: #E8AFA8; color: #8B3A34; }
+.chaos-ad.temp-win { background: #F5D6A0; color: #8B6914; }
+.chaos-ad.dead { opacity: 0.25; transform: scale(0.8); }
+.chaos-arrow { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+.chaos-arrow span { font-size: 0.7rem; color: var(--red-soft); font-weight: 500; }
+.chaos-arrow .arrow-line { width: 2px; height: 30px; background: var(--red-soft); opacity: 0.4; }
+.chaos-page { padding: 0.3rem 0.8rem; background: #E8AFA8; border-radius: 6px; font-size: 0.65rem; color: #8B3A34; font-weight: 600; }
+
+/* System animation - structured flow */
+.system-canvas { position: relative; height: 300px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+.system-step { display: flex; align-items: center; gap: 0.75rem; opacity: 0; transform: translateX(-20px); transition: all 0.6s ease; width: 100%; }
+.system-step.active { opacity: 1; transform: translateX(0); }
+.step-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--accent); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; flex-shrink: 0; }
+.step-content h5 { font-size: 0.82rem; font-weight: 600; color: var(--accent); margin-bottom: 0.1rem; }
+.step-content p { font-size: 0.72rem; color: var(--text-body); line-height: 1.4; }
+.system-connector { width: 2px; height: 12px; background: var(--accent-warm); margin-left: 19px; opacity: 0; transition: opacity 0.4s; }
+.system-connector.active { opacity: 1; }
+.system-result { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--accent); border-radius: 10px; color: white; font-size: 0.75rem; font-weight: 600; opacity: 0; transform: scale(0.9); transition: all 0.6s; }
+.system-result.active { opacity: 1; transform: scale(1); }
+.system-result .result-arrow { font-size: 1rem; }
+
+/* ===== NICHE TAGS ===== */
+.niche-tags { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+.niche-tag { padding: 0.5rem 1.2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; font-size: 0.85rem; color: var(--text-body); font-weight: 500; }
+
+/* ===== FUNNEL VISUAL ===== */
+.funnel-visual { display: flex; align-items: center; justify-content: center; gap: 0; max-width: 900px; margin: 0 auto; }
+.fv-step { text-align: center; flex: 1; padding: 1.5rem 1rem; position: relative; }
+.fv-num { font-family: var(--serif); font-size: 2.5rem; color: var(--accent-bg); line-height: 1; margin-bottom: 0.5rem; }
+.fv-step h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text); }
+.fv-step p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+.fv-arrow { font-size: 1.5rem; color: var(--border); flex-shrink: 0; margin: 0 -0.5rem; padding-top: 0.5rem; }
+
+/* ===== OWNERSHIP CARDS ===== */
+.ownership-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+.own-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2.2rem; text-align: center; transition: all 0.3s; }
+.own-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(126,217,160,0.3); transform: translateY(-3px); }
+.own-card h4 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: #7ED9A0; margin-bottom: 0.6rem; }
+.own-card p { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+/* ===== DARK SECTION ===== */
+.dark-section { background: var(--bg-dark); color: white; }
+.dark-section .section-label { color: rgba(255,255,255,0.5); }
+.dark-section .section-heading { color: white; }
+.dark-section .section-heading .accent { color: #7ED9A0; font-style: italic; }
+.dark-section .section-sub { color: rgba(255,255,255,0.6); }
+.dark-section .section-sub strong { color: white; }
+
+/* ===== CASE STUDIES ===== */
+.case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto 4rem; }
+.case-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem; transition: all 0.4s; text-align: left; }
+.case-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(126,217,160,0.3); transform: translateY(-4px); }
+.case-brand-tag { display: inline-block; padding: 0.3rem 0.9rem; background: rgba(126,217,160,0.15); border-radius: 100px; font-size: 0.72rem; color: #7ED9A0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+.case-result { font-family: var(--serif); font-size: 1.8rem; color: white; line-height: 1.2; margin-bottom: 0.5rem; }
+.case-metric { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; }
+.case-quote { font-size: 0.92rem; color: rgba(255,255,255,0.7); line-height: 1.7; font-style: italic; margin-bottom: 1.5rem; }
+.case-author { display: flex; align-items: center; gap: 0.75rem; }
+.case-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(126,217,160,0.2); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 0.85rem; color: #7ED9A0; flex-shrink: 0; }
+.case-author-info h5 { font-size: 0.85rem; font-weight: 600; color: white; }
+.case-author-info p { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+.results-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.1); max-width: 1000px; margin: 0 auto; }
+.results-bar-item { text-align: center; }
+.results-bar-item h3 { font-family: var(--serif); font-size: 2.5rem; font-weight: 400; color: #7ED9A0; line-height: 1; margin-bottom: 0.3rem; }
+.results-bar-item p { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ===== BRAND LOGOS GRID ===== */
+.brands-grid-section { background: var(--bg-dark); padding: 0 5rem 5rem; color: white; }
+.brands-grid-label { text-align: center; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 500; margin-bottom: 2.5rem; }
+.brands-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+.brand-logo-item { display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; transition: all 0.3s; min-height: 70px; }
+.brand-logo-item:hover { background: rgba(255,255,255,0.08); }
+.brand-logo-item span { font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; text-transform: uppercase; }
+.partner-badges { display: flex; align-items: center; justify-content: center; gap: 3rem; padding: 2.5rem 5rem; background: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.06); }
+.partner-badge { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
+.partner-badge .badge-icon { font-size: 1.1rem; }
+
+/* ===== SERVICES ===== */
+.services-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto; }
+.s-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 20px; padding: 3rem; transition: all 0.4s; text-align: left; }
+.s-card:hover { box-shadow: 0 16px 50px rgba(0,0,0,0.06); transform: translateY(-4px); }
+.s-card-tag { display: inline-block; padding: 0.4rem 1rem; background: var(--accent-bg); color: var(--accent); font-size: 0.75rem; font-weight: 500; border-radius: 100px; margin-bottom: 1.5rem; }
+.s-card h3 { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; margin-bottom: 1rem; }
+.s-card > p { color: var(--text-body); font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem; }
+.s-features { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 2rem; }
+.s-features li { font-size: 0.88rem; color: var(--text-body); display: flex; align-items: center; gap: 0.75rem; }
+.s-features li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-bg); flex-shrink: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%232D5A3D' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; }
+.s-card-footer { padding-top: 1.5rem; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+.s-card-footer .duration { font-size: 0.85rem; color: var(--text-muted); }
+.s-card-footer .commitment { font-size: 0.85rem; color: var(--accent); font-weight: 500; }
+.services-note { text-align: center; margin-top: 2.5rem; padding: 1.5rem 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 12px; font-size: 0.9rem; color: var(--text-body); max-width: 1000px; margin-left: auto; margin-right: auto; }
+.services-note strong { color: var(--accent); font-weight: 500; }
+
+/* ===== WHY DIFFERENT ===== */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+.w-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 16px; padding: 2.5rem; transition: all 0.3s; text-align: center; }
+.w-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.05); transform: translateY(-3px); }
+.w-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.2rem; }
+.w-card h4 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.6rem; }
+.w-card p { font-size: 0.9rem; color: var(--text-body); line-height: 1.7; }
+
+/* ===== CTA ===== */
+.cta-section { background: var(--bg); text-align: center; padding: 8rem 5rem; }
+.cta-inner { max-width: 720px; margin: 0 auto; padding: 5rem; background: var(--bg-warm); border: 1px solid var(--border); border-radius: 24px; position: relative; overflow: hidden; }
+.cta-inner::before { content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: radial-gradient(circle, var(--accent-bg) 0%, transparent 70%); pointer-events: none; }
+.cta-inner .section-heading { margin: 0 auto 1rem; max-width: 500px; font-family: var(--serif); font-size: clamp(2rem,3.5vw,3rem); font-weight: 400; line-height: 1.2; }
+.cta-inner .section-text { margin: 0 auto 2.5rem; text-align: center; max-width: 440px; font-size: 1.05rem; color: var(--text-body); line-height: 1.85; }
+.cta-spots { margin-top: 1.5rem; font-size: 0.8rem; color: var(--accent); font-weight: 500; }
+.section-label-cta { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+
+/* ===== FOOTER ===== */
+footer { padding: 3rem 5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--bg); }
+.f-logo img { height: 18px; width: auto; }
+footer p { font-size: 0.8rem; color: var(--text-muted); }
+.f-links { display: flex; gap: 2rem; }
+.f-links a { font-size: 0.8rem; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+.f-links a:hover { color: var(--accent); }
+
+/* ===== ANIMATIONS ===== */
+.reveal { opacity: 0; transform: translateY(25px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  nav { padding: 1.25rem 2.5rem; }
+  nav.scrolled { padding: 0.9rem 2.5rem; }
+  section { padding: 5rem 2.5rem; }
+  .comparison-container { grid-template-columns: 1fr; }
+  .services-cards { grid-template-columns: 1fr; }
+  .case-grid { grid-template-columns: 1fr; }
+  .results-bar { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: 1fr; }
+  .ownership-grid { grid-template-columns: 1fr; }
+  .hero-stats-bar { flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .hero-stat:last-child { border-bottom: none; }
+  .brands-grid { grid-template-columns: repeat(3, 1fr); }
+  .brands-grid-section { padding: 0 2.5rem 4rem; }
+  .partner-badges { flex-wrap: wrap; gap: 1.5rem; padding: 2rem 2.5rem; }
+  .proof-interrupt { padding: 3rem 2.5rem; }
+  .funnel-visual { flex-direction: column; gap: 0; }
+  .fv-arrow { transform: rotate(90deg); margin: 0; }
+  footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .cta-section { padding: 5rem 2.5rem; }
+  .cta-inner { padding: 3rem 2rem; }
+}
+@media (max-width: 640px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-center { display: none; }
+  section { padding: 4rem 1.5rem; }
+  .hero { padding: 7rem 1.5rem 3rem; }
+  .results-bar { grid-template-columns: 1fr 1fr; }
+  .hero-actions { flex-direction: column; }
+  .brands-grid { grid-template-columns: repeat(2, 1fr); }
+  .brands-grid-section { padding: 0 1.5rem 3rem; }
+  .partner-badges { padding: 2rem 1.5rem; }
+  .proof-interrupt { padding: 2.5rem 1.5rem; }
+  footer { padding: 2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-logo"><img src="lvrg-logo-dark.svg" alt="LVRG"></a>
+  <div class="nav-center">
+    <a href="#system">The System</a>
+    <a href="#niche">Why Health</a>
+    <a href="#proof">Results</a>
+    <a href="#services">Services</a>
+    <a href="#why">Why LVRG</a>
+  </div>
+  <a href="#contact" class="nav-cta-btn">Book a Call</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge reveal"><span class="dot"></span> Only 5 DFY spots left this month</div>
+  <h1 class="reveal delay-1">We Help Supplement, Skincare & Haircare Brands Hit 8 Figures by Turning Skeptical Strangers Into <span class="accent">Educated Buyers</span></h1>
+  <p class="hero-sub reveal delay-2">We install a proprietary educational funnel system directly into your business &mdash; so you own the entire acquisition infrastructure. No agency dependency. No monthly retainers. Just a system your team runs that converts cold traffic at 2&ndash;5x the industry rate.</p>
+  <div class="hero-actions reveal delay-3">
+    <a href="#contact" class="btn-fill">Apply for a Strategy Call &rarr;</a>
+    <a href="#system" class="btn-outline">See How It Works</a>
+  </div>
+  <div class="hero-stats-bar reveal delay-4">
+    <div class="hero-stat"><h3>&euro;50M+</h3><p>Revenue Generated</p></div>
+    <div class="hero-stat"><h3>100+</h3><p>Health Brands Scaled</p></div>
+    <div class="hero-stat"><h3>90 Days</h3><p>To Record Numbers</p></div>
+    <div class="hero-stat"><h3>2&ndash;5x</h3><p>Higher Cold Traffic CVR</p></div>
+  </div>
+</section>
+
+<!-- Logo Marquee -->
+<div class="logo-bar">
+  <p class="logo-bar-label">Trusted by leading health & beauty brands</p>
+  <div class="logo-track">
+    <img src="https://img.logoipsum.com/245.svg" alt="Brand"><img src="https://img.logoipsum.com/248.svg" alt="Brand"><img src="https://img.logoipsum.com/249.svg" alt="Brand"><img src="https://img.logoipsum.com/243.svg" alt="Brand"><img src="https://img.logoipsum.com/258.svg" alt="Brand"><img src="https://img.logoipsum.com/259.svg" alt="Brand"><img src="https://img.logoipsum.com/261.svg" alt="Brand"><img src="https://img.logoipsum.com/262.svg" alt="Brand"><img src="https://img.logoipsum.com/263.svg" alt="Brand"><img src="https://img.logoipsum.com/264.svg" alt="Brand">
+    <img src="https://img.logoipsum.com/245.svg" alt="Brand"><img src="https://img.logoipsum.com/248.svg" alt="Brand"><img src="https://img.logoipsum.com/249.svg" alt="Brand"><img src="https://img.logoipsum.com/243.svg" alt="Brand"><img src="https://img.logoipsum.com/258.svg" alt="Brand"><img src="https://img.logoipsum.com/259.svg" alt="Brand"><img src="https://img.logoipsum.com/261.svg" alt="Brand"><img src="https://img.logoipsum.com/262.svg" alt="Brand"><img src="https://img.logoipsum.com/263.svg" alt="Brand"><img src="https://img.logoipsum.com/264.svg" alt="Brand">
+  </div>
+</div>
+
+<!-- ===== SECTION: The Real Problem (Animated Comparison) ===== -->
+<section class="centered-section" id="system" style="background:var(--bg-warm);">
+  <p class="section-label reveal">The real problem</p>
+  <h2 class="section-heading reveal delay-1">Most Health Brands Are Throwing Spaghetti at the Wall. <br>Here's What Actually Works.</h2>
+  <p class="section-sub reveal delay-2">Random ads, unconfirmed angles, budget burning with no direction. <strong>That's not a system. That's chaos.</strong></p>
+
+  <div class="comparison-container reveal delay-3">
+    <!-- LEFT: Chaos -->
+    <div class="comp-side comp-chaos" id="chaosPanel">
+      <h3>What Most Brands Do</h3>
+      <div class="chaos-canvas" id="chaosCanvas">
+        <!-- JS will populate animated ad tiles -->
+      </div>
+      <div class="chaos-arrow">
+        <span>All traffic goes to...</span>
+        <div class="arrow-line"></div>
+        <div class="chaos-page">Product Page</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: System -->
+    <div class="comp-side comp-system" id="systemPanel">
+      <h3>The LVRG System</h3>
+      <div class="system-canvas" id="systemCanvas">
+        <div class="system-step" data-step="1">
+          <div class="step-icon">&#128269;</div>
+          <div class="step-content"><h5>Research &amp; Confirm Angle</h5><p>Deep avatar research, then validate what resonates</p></div>
+        </div>
+        <div class="system-connector" data-step="1"></div>
+        <div class="system-step" data-step="2">
+          <div class="step-icon">&#127912;</div>
+          <div class="step-content"><h5>Find Winning Creative Type</h5><p>Test formats systematically &mdash; know what converts</p></div>
+        </div>
+        <div class="system-connector" data-step="2"></div>
+        <div class="system-step" data-step="3">
+          <div class="step-icon">&#9889;</div>
+          <div class="step-content"><h5>Produce Volume at Scale</h5><p>AI-powered production &mdash; higher creative hit rate</p></div>
+        </div>
+        <div class="system-connector" data-step="3"></div>
+        <div class="system-step" data-step="4">
+          <div class="step-icon">&#128218;</div>
+          <div class="step-content"><h5>Send to Educational Funnel</h5><p>Educate before selling &mdash; not straight to product page</p></div>
+        </div>
+        <div class="system-connector" data-step="4"></div>
+        <div class="system-result" data-step="5">
+          <span class="result-arrow">&#10132;</span> Optimized Offer Page &mdash; 2&ndash;5x Higher CVR
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Proof Interrupt -->
+<div class="proof-interrupt" style="background:var(--bg);">
+  <div class="proof-interrupt-inner reveal">
+    <blockquote>"When we stopped sending cold traffic straight to a product page and started educating them first, our conversion rate nearly tripled."</blockquote>
+    <div class="proof-author">
+      <div class="proof-avatar">SL</div>
+      <div class="proof-meta"><h5>S. Lehmann</h5><p>CEO &mdash; GlowScience Skincare</p></div>
+    </div>
+    <span class="proof-result">Cold traffic CVR from 1.2% &rarr; 3.8%</span>
+  </div>
+</div>
+
+<!-- ===== SECTION: Why Health Niche ===== -->
+<section class="centered-section" id="niche">
+  <p class="section-label reveal">Built exclusively for health brands</p>
+  <h2 class="section-heading reveal delay-1">Your Customers Are Skeptical. They've Tried Everything. <br>That's Why This Funnel <em style="color:var(--accent);">Is the Only One That Works.</em></h2>
+  <p class="section-sub reveal delay-2">Supplement, skincare, and haircare customers have been let down by every "miracle product" out there. They don't buy on impulse. They need to be educated first &mdash; and that's exactly what our system does.</p>
+  <div class="niche-tags reveal delay-3">
+    <span class="niche-tag">Supplements</span>
+    <span class="niche-tag">Skincare</span>
+    <span class="niche-tag">Haircare</span>
+    <span class="niche-tag">Gut Health</span>
+    <span class="niche-tag">Longevity</span>
+    <span class="niche-tag">Joint Health</span>
+    <span class="niche-tag">Acne</span>
+    <span class="niche-tag">Hair Growth</span>
+  </div>
+</section>
+
+<!-- ===== SECTION: Ownership ===== -->
+<section class="centered-section dark-section">
+  <p class="section-label reveal">Your system. Your team. Your growth.</p>
+  <h2 class="section-heading reveal delay-1">We Install It. You <span class="accent">Own It.</span> Forever.</h2>
+  <p class="section-sub reveal delay-2">We build the entire acquisition infrastructure &mdash; then your team runs it. <strong>Our goal is to make you completely independent.</strong></p>
+  <div class="ownership-grid reveal delay-3">
+    <div class="own-card">
+      <h4>Full System Transfer</h4>
+      <p>Every pipeline, framework, and funnel we build becomes permanently yours. No licensing, no recurring costs.</p>
+    </div>
+    <div class="own-card">
+      <h4>Team Training &amp; Hiring</h4>
+      <p>We train your team to run it independently. Need to hire? We help you find the right people.</p>
+    </div>
+    <div class="own-card">
+      <h4>True Independence</h4>
+      <p>Our success = how quickly you don't need us anymore. When you're scaling on your own, we've done our job.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Proof Interrupt -->
+<div class="proof-interrupt" style="background:var(--bg-warm);">
+  <div class="proof-interrupt-inner reveal">
+    <blockquote>"Within 4 months we went from &euro;200K to &euro;650K monthly revenue. And my team runs the whole system now."</blockquote>
+    <div class="proof-author">
+      <div class="proof-avatar">JR</div>
+      <div class="proof-meta"><h5>J. Richter</h5><p>Founder &mdash; DermaVive Skincare</p></div>
+    </div>
+    <span class="proof-result">&euro;200K &rarr; &euro;650K / month in 4 months</span>
+  </div>
+</div>
+
+<!-- ===== SECTION: Our 5-Step Process ===== -->
+<section class="centered-section" style="background:var(--bg-warm);">
+  <p class="section-label reveal">Our 5-step process</p>
+  <h2 class="section-heading reveal delay-1">How We Build Your Acquisition Machine</h2>
+  <p class="section-sub reveal delay-2">A proven, systematic process. No guessing. Every step builds on the last. Every asset stays with you.</p>
+  <div class="funnel-visual reveal delay-3">
+    <div class="fv-step"><div class="fv-num">01</div><h4>Avatar Deep-Dive</h4><p>Buying triggers &amp; language</p></div>
+    <span class="fv-arrow">&rarr;</span>
+    <div class="fv-step"><div class="fv-num">02</div><h4>Angle Validation</h4><p>Confirm what resonates</p></div>
+    <span class="fv-arrow">&rarr;</span>
+    <div class="fv-step"><div class="fv-num">03</div><h4>Creative Volume</h4><p>AI-powered production</p></div>
+    <span class="fv-arrow">&rarr;</span>
+    <div class="fv-step"><div class="fv-num">04</div><h4>Educational Funnel</h4><p>Educate before selling</p></div>
+    <span class="fv-arrow">&rarr;</span>
+    <div class="fv-step"><div class="fv-num">05</div><h4>Scale &amp; Transfer</h4><p>You own everything</p></div>
+  </div>
+</section>
+
+<!-- ===== SECTION: Case Studies ===== -->
+<section class="centered-section dark-section" id="proof">
+  <p class="section-label reveal">Real brands. Real results.</p>
+  <h2 class="section-heading reveal delay-1">They Were Stuck Too. Then They Installed the System.</h2>
+  <p class="section-sub reveal delay-2">Every brand below was stuck at a plateau. Here's what happened after they installed the system.</p>
+  <div class="case-grid reveal delay-3">
+    <div class="case-card">
+      <span class="case-brand-tag">Supplements</span>
+      <div class="case-result">&euro;120K &rarr; &euro;480K/mo</div>
+      <p class="case-metric">In 90 days &bull; 4x revenue growth</p>
+      <p class="case-quote">"Within 90 days of installing the LVRG system, we hit our best month ever. And we own the entire system now."</p>
+      <div class="case-author"><div class="case-avatar">MK</div><div class="case-author-info"><h5>M. Keller</h5><p>Founder, NutriCore Supplements</p></div></div>
+    </div>
+    <div class="case-card">
+      <span class="case-brand-tag">Skincare</span>
+      <div class="case-result">1.2% &rarr; 3.8% CVR</div>
+      <p class="case-metric">Cold traffic &bull; 3.2x conversion lift</p>
+      <p class="case-quote">"When we started educating first, our conversion rate on cold traffic nearly tripled."</p>
+      <div class="case-author"><div class="case-avatar">SL</div><div class="case-author-info"><h5>S. Lehmann</h5><p>CEO, GlowScience Skincare</p></div></div>
+    </div>
+    <div class="case-card">
+      <span class="case-brand-tag">Haircare</span>
+      <div class="case-result">&euro;85K &rarr; &euro;340K/mo</div>
+      <p class="case-metric">In 5 months &bull; CPA down 42%</p>
+      <p class="case-quote">"Confirmed angles, scaled creative volume, educational funnel &mdash; everything clicked. My team runs it all now."</p>
+      <div class="case-author"><div class="case-avatar">TW</div><div class="case-author-info"><h5>T. Wagner</h5><p>Co-Founder, VitaBloom Hair</p></div></div>
+    </div>
+  </div>
+  <div class="results-bar reveal delay-4">
+    <div class="results-bar-item"><h3>&euro;50M+</h3><p>Total Revenue Generated</p></div>
+    <div class="results-bar-item"><h3>100+</h3><p>Health Brands Scaled</p></div>
+    <div class="results-bar-item"><h3>2&ndash;5x</h3><p>Higher Cold Traffic CVR</p></div>
+    <div class="results-bar-item"><h3>90 Days</h3><p>Avg. Time to Record Month</p></div>
+  </div>
+</section>
+
+<!-- Brand Logos Grid -->
+<div class="brands-grid-section">
+  <p class="brands-grid-label">Brands that trust the LVRG system</p>
+  <div class="brands-grid">
+    <div class="brand-logo-item"><span>NutriCore</span></div>
+    <div class="brand-logo-item"><span>GlowScience</span></div>
+    <div class="brand-logo-item"><span>VitaBloom</span></div>
+    <div class="brand-logo-item"><span>DermaVive</span></div>
+    <div class="brand-logo-item"><span>PureRoot</span></div>
+    <div class="brand-logo-item"><span>SkinLab</span></div>
+    <div class="brand-logo-item"><span>HairPro</span></div>
+    <div class="brand-logo-item"><span>GutWell</span></div>
+    <div class="brand-logo-item"><span>LumiSkin</span></div>
+    <div class="brand-logo-item"><span>BioVital</span></div>
+    <div class="brand-logo-item"><span>ClearDerm</span></div>
+    <div class="brand-logo-item"><span>ZenGut</span></div>
+    <div class="brand-logo-item"><span>FloraFit</span></div>
+    <div class="brand-logo-item"><span>AgeDefy</span></div>
+    <div class="brand-logo-item"><span>ManeBoost</span></div>
+  </div>
+</div>
+<div class="partner-badges">
+  <div class="partner-badge"><span class="badge-icon">&#9878;</span> Meta Business Partner</div>
+  <div class="partner-badge"><span class="badge-icon">&#9733;</span> Shopify Partner</div>
+  <div class="partner-badge"><span class="badge-icon">&#9830;</span> Klaviyo Partner</div>
+  <div class="partner-badge"><span class="badge-icon">&#9679;</span> Google Partner</div>
+</div>
+
+<!-- ===== SECTION: Services ===== -->
+<section class="centered-section" id="services">
+  <p class="section-label reveal">Two ways to work with us</p>
+  <h2 class="section-heading reveal delay-1">You Choose the Speed. We Deliver the System.</h2>
+  <p class="section-sub reveal delay-2">Both paths install the same proven framework. Both include direct founder access and a money-back guarantee.</p>
+  <div class="services-cards reveal delay-3">
+    <div class="s-card">
+      <span class="s-card-tag">Done For You</span>
+      <h3>The 6-Week Sprint</h3>
+      <p>We take over completely and build your acquisition machine from scratch.</p>
+      <ul class="s-features">
+        <li>In-depth avatar &amp; pain point research</li>
+        <li>Proprietary message testing framework</li>
+        <li>Full AI-powered creative suite build</li>
+        <li>Educational acquisition funnel</li>
+        <li>Proven ads account structure</li>
+        <li>Creative pipeline &amp; AI processes installed</li>
+        <li>Direct founder access via WhatsApp &amp; Zoom</li>
+      </ul>
+      <div class="s-card-footer"><span class="duration">6 Weeks</span><span class="commitment">5&ndash;10 hrs/month from you</span></div>
+    </div>
+    <div class="s-card">
+      <span class="s-card-tag">Done With You</span>
+      <h3>The 6-Month Build</h3>
+      <p>Your team implements with our direct guidance. We make you fully independent.</p>
+      <ul class="s-features">
+        <li>Complete 8-figure framework &amp; strategy</li>
+        <li>Step-by-step implementation guidance</li>
+        <li>Live iteration based on real results</li>
+        <li>Full creative &amp; funnel playbook</li>
+        <li>AI creative pipeline training</li>
+        <li>Ads structure &amp; testing framework</li>
+        <li>Direct founder access via WhatsApp &amp; Zoom</li>
+      </ul>
+      <div class="s-card-footer"><span class="duration">6 Months</span><span class="commitment">5&ndash;10 hrs/week from you</span></div>
+    </div>
+  </div>
+  <div class="services-note reveal delay-4">Both options include <strong>unlimited direct access</strong> to the founder &mdash; no account managers &mdash; plus a <strong>no-questions-asked money-back guarantee</strong>.</div>
+</section>
+
+<!-- Proof Interrupt -->
+<div class="proof-interrupt">
+  <div class="proof-interrupt-inner reveal">
+    <blockquote>"They only work with health brands. They knew our customer better than we did. Every angle, every objection &mdash; they'd seen it a hundred times before."</blockquote>
+    <div class="proof-author">
+      <div class="proof-avatar">AH</div>
+      <div class="proof-meta"><h5>A. Hoffmann</h5><p>Founder &mdash; PureRoot Longevity</p></div>
+    </div>
+    <span class="proof-result">Scaled from &euro;60K to &euro;290K/mo in 6 months</span>
+  </div>
+</div>
+
+<!-- ===== SECTION: Why LVRG ===== -->
+<section class="centered-section" id="why" style="background:var(--bg-warm);">
+  <p class="section-label reveal">Why LVRG</p>
+  <h2 class="section-heading reveal delay-1">Not Another Agency. The Team That Makes You <em style="color:var(--accent);">Never Need One Again.</em></h2>
+  <p class="section-sub reveal delay-2"></p>
+  <div class="why-grid reveal delay-3">
+    <div class="w-card">
+      <div class="w-icon">&#127959;&#65039;</div>
+      <h4>Operators, Not Advisors</h4>
+      <p>We're shareholders in a supplement company that scaled past 8 figures. We've built what we're teaching you to build.</p>
+    </div>
+    <div class="w-card">
+      <div class="w-icon">&#129516;</div>
+      <h4>Health Brands Only</h4>
+      <p>Supplements. Skincare. Haircare. That's all we do. This singular focus is our unfair advantage.</p>
+    </div>
+    <div class="w-card">
+      <div class="w-icon">&#128275;</div>
+      <h4>You Own Everything</h4>
+      <p>Every system, pipeline, and process we build is permanently yours. We train your team and make you independent.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <p class="section-label-cta reveal">Ready?</p>
+    <h2 class="section-heading reveal delay-1" style="font-style:italic;">Stop Renting Growth. Start Owning It.</h2>
+    <p class="section-text reveal delay-2">Apply for a free strategy call. We'll look at your brand, identify your biggest growth levers, and show you exactly how the system would work for you.</p>
+    <a href="#" class="btn-fill reveal delay-3">Book Your Strategy Call &rarr;</a>
+    <p class="cta-spots reveal delay-4">Limited to 5 DFY + 10 DWY spots per month</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <a href="#" class="f-logo"><img src="lvrg-logo-dark.svg" alt="LVRG"></a>
+  <p>&copy; 2026 LVRG &mdash; All rights reserved.</p>
+  <div class="f-links"><a href="#">Privacy</a><a href="#">Imprint</a><a href="#">Contact</a></div>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+// Reveal on scroll
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ===== CHAOS ANIMATION =====
+(function() {
+  const canvas = document.getElementById('chaosCanvas');
+  if (!canvas) return;
+
+  const adLabels = ['Ad A', 'Ad B', 'Ad C', 'Ad D', 'Ad E', 'Ad F', 'Ad G', 'Ad H', 'Ad I', 'Ad J', 'Ad K', 'Ad L'];
+  const positions = [
+    {x:5,y:5},{x:35,y:0},{x:65,y:8},{x:10,y:35},{x:42,y:30},{x:72,y:28},
+    {x:0,y:60},{x:30,y:58},{x:58,y:55},{x:18,y:82},{x:48,y:78},{x:75,y:75}
+  ];
+
+  // Create ad tiles
+  adLabels.forEach((label, i) => {
+    const ad = document.createElement('div');
+    ad.className = 'chaos-ad';
+    ad.textContent = label;
+    ad.style.left = positions[i].x + '%';
+    ad.style.top = positions[i].y + '%';
+    ad.dataset.index = i;
+    canvas.appendChild(ad);
+  });
+
+  const ads = canvas.querySelectorAll('.chaos-ad');
+
+  function runChaosLoop() {
+    // Reset all
+    ads.forEach(ad => {
+      ad.className = 'chaos-ad';
+      ad.style.transform = '';
+    });
+
+    // Phase 1: Ads appear scattered (random)
+    let delay = 0;
+    ads.forEach((ad, i) => {
+      setTimeout(() => {
+        ad.classList.add('active');
+        // Random: most fail, few temp-win
+        const rand = Math.random();
+        if (rand < 0.7) {
+          ad.classList.add('fail');
+        } else {
+          ad.classList.add('temp-win');
+        }
+      }, delay);
+      delay += 150;
+    });
+
+    // Phase 2: Temp wins die too
+    setTimeout(() => {
+      ads.forEach(ad => {
+        if (ad.classList.contains('temp-win')) {
+          setTimeout(() => {
+            ad.classList.remove('temp-win');
+            ad.classList.add('fail', 'dead');
+          }, Math.random() * 800);
+        } else {
+          ad.classList.add('dead');
+        }
+      });
+    }, 3000);
+
+    // Phase 3: Reset and loop
+    setTimeout(runChaosLoop, 6000);
+  }
+
+  // Start when visible
+  const chaosObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        runChaosLoop();
+        chaosObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  chaosObserver.observe(canvas);
+})();
+
+// ===== SYSTEM ANIMATION =====
+(function() {
+  const panel = document.getElementById('systemCanvas');
+  if (!panel) return;
+
+  const steps = panel.querySelectorAll('.system-step');
+  const connectors = panel.querySelectorAll('.system-connector');
+  const result = panel.querySelector('.system-result');
+
+  function runSystemLoop() {
+    // Reset
+    steps.forEach(s => s.classList.remove('active'));
+    connectors.forEach(c => c.classList.remove('active'));
+    if (result) result.classList.remove('active');
+
+    let delay = 0;
+    steps.forEach((step, i) => {
+      setTimeout(() => {
+        step.classList.add('active');
+        if (connectors[i]) {
+          setTimeout(() => connectors[i].classList.add('active'), 300);
+        }
+      }, delay);
+      delay += 700;
+    });
+
+    // Show result
+    setTimeout(() => {
+      if (result) result.classList.add('active');
+    }, delay + 200);
+
+    // Loop
+    setTimeout(runSystemLoop, 7000);
+  }
+
+  const systemObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        runSystemLoop();
+        systemObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  systemObserver.observe(panel);
+})();
+</script>
+
+</body>
+</html>
